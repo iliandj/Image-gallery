@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160908203239",
+    "multiparty": "registry:dt/multiparty#0.0.0+20160928124223",
+    "node": "registry:dt/node#6.0.0+20160928143418",
+    "npm": "registry:dt/npm#0.0.0+20160317120654"
+  }
+}

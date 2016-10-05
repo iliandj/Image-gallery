@@ -1,0 +1,19 @@
+{
+  "name": "image-gallery",
+  "version": "1.0.0",
+  "engines": {
+    "node": "6.6.x",
+    "npm": "3.10.x"
+  },
+  "main": "index.js",
+  "author": "iyordanov",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "http": "0.0.0",
+    "multiparty": "4.1.2",
+    "standard": "8.1.0"
+  }
+}

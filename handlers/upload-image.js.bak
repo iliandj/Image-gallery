@@ -1,0 +1,62 @@
+let fs = require('fs')
+let url = require('url')
+let multiparty = require('multiparty')
+
+module.exports = (req, res) => {
+  req.pathName = req.pathName || url.parse(req.url).pathname
+  if (req.pathName === '/upload') {
+    fs.readFile('./content/add-image.html', (err, data) => {
+      if (err) console.log(err)
+
+      console.log('[200] ' + req.method + ' to ' + req.url)
+
+      if (req.method === 'POST') {
+        let form = new multiparty.Form()
+
+        form.on('part', part => {
+          if (part.filename) { // file
+            let file = ''
+
+            part.on('data', data => { file += data })
+            part.on('end', () => {
+              fs.writeFile(part.filename, file, err => {
+                if (err) throw err
+
+                res.writeHead(200)
+                res.write('Uploaded')
+                res.end()
+              })
+            })
+          } else { // text
+            part.resume()
+          }
+        })
+
+        form.parse(req)
+        //         req.on('data', (data) => {
+        //           data = data.toString()
+        //           data = data.split('&')
+        //           for (let i = 0; i < data.length; i++) {
+        //             let _data = data[i].split('=')
+        //             post[_data[0]] = _data[1]
+        //           }
+        //         })
+      }
+
+//       if (post.name === '' || post.url === '') {
+//         res.writeHead(404)
+//         res.write('404 Not Found')
+//         res.end()
+//         return
+//       }
+
+//       res.writeHead(200, {
+//         'Content-Type': 'text/html'
+//       })
+//       res.write(data)
+//       res.end()
+    })
+  } else {
+    return true
+  }
+}
